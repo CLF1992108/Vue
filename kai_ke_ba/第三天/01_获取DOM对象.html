@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+    </style>
+    <script>
+        Vue.component('myBtn', {
+            data: function(){
+                return {}
+            },
+            template: `<button>
+                按钮组件
+            </button>`
+        })
+        var App = {
+            data: function(){
+                return {}
+            },
+            template: `<div class='main'>
+                
+            </div>`
+
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <button ref='btn1'>登录</button>
+                <button ref='btn2'>注册</button>
+                <myBtn ref='myBtn'></myBtn>
+            </div>
+            `,
+            data: function(){
+                return {
+                   
+                }
+            },
+           created:function(){
+            console.log('created');
+           },
+           beforeMount:function(){
+            console.log('beforeMount');
+           },
+           mounted:function(){
+                
+                console.log(this.$refs.btn1);
+                console.log(this.$refs.btn2);
+                console.log(this.$refs.myBtn);
+           }
+        })
+    </script>
+   
+</body>
+</html>

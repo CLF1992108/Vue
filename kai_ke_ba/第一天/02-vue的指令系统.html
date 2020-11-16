@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'></div>
+    <script src="../node_modules/vue/dist/vue.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            template:`<div>
+                <div v-text='msg'></div>
+                <div v-html='msg2'></div>
+                <div v-if='isShow'>hahaha</div>
+                <div v-show='isShow'>hahaha</div>
+                <div v-if='Math.random() > 0.5'>此值大于0.5</div>
+                <div v-else>此值小于0.5</div>
+                <ul>
+                    <li v-for='(item, index) in menuList'>{{index}} {{item.name}} {{item.price}}</li>
+                </ul>
+                <ul>
+                    <li v-for='(value, key) in human'>{{key}} {{value}}</li>
+                </ul>
+            </div>`,
+            data: function(){
+                return {
+                    msg: '指令系统',
+                    msg2: '<h1>指令系统2</msg>',
+                    isShow: false,
+                    menuList:[{id: 1, name: '大腰子', price: 50},
+                            {id: 2, name: '黄花鱼', price: 20},
+                            {id: 3, name: '上海青', price: 10},],
+                    human:{name: '张三', age: 18}
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>

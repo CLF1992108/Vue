@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script>Vue.prototype.$axios = axios;
+        
+      
+                let App = {
+                    data(){
+                        return {
+                            res1: '',
+                            res2: '',
+                        }
+        
+                    },
+                    template: `<div>
+                        响应1:{{res1}} 响应2:{{res2}} <button @click='sendAjax'>发送请求</button>
+                    </div>`,
+                    methods: {
+                        sendAjax(){
+                            let myAxios = this.$axios;
+                            // myAxios.defaults.baseURL = 'https://api-hmugo-web.itheima.net';
+                            let q1 = myAxios.get('https://api-hmugo-web.itheima.net/api/public/v1/categories')
+                            .then(response=>{
+                                console.log('response', response);
+                                this.res1 =  response.data.message[2].cat_name;
+                                this.res2 =  response.data.message[2].children[0].cat_name;
+                            })
+                            .catch(err=>{
+                                console.log('err', err);
+                            });
+                        }
+                    }
+                }
+                let vx = new Vue({
+                    el: '#app',
+                    template: `
+                    <div>
+                        <App></App>
+                    </div>
+                    `,
+                    data: function () {
+                        return {
+        
+                        }
+                    },
+                    components: {
+                        App
+                    }
+                })
+    </script>
+
+</body>
+
+</html>

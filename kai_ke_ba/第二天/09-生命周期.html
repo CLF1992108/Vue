@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>   
+        body {
+                padding: 0px;
+                margin: 0px;
+            }   
+        .main {
+            background-color: chartreuse;
+        }       
+        .active{
+           background-color: chartreuse;
+           color: chocolate;
+            
+       }
+    </style>
+</head>
+<body> 
+</div>
+    <div id='app'>
+        <keep-alive>
+            <Test  v-if='isShow'></Test>
+        </keep-alive>
+        <button @click='isShow = !isShow'>改变生死</button>
+    </div>
+       
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    
+    <script>
+       
+        var Test = {
+            template:`<div id='test'>
+                <div>{{msg}}</div>
+                
+                <button @click='change'>改变</button>
+            </div>`,
+            data(){
+                return {
+                    msg: '你好生命周期'
+                }
+            },
+            methods: {
+                change(){
+                    this.msg = this.msg + '改变了';
+                }
+            },
+            beforeCreate(){
+                console.log("beforeCreated", this.msg);
+            },
+            created(){
+                console.log("created",  document.getElementById('app'));
+            },
+            beforeMount(){
+                document.getElementById('app');
+                console.log("beforeMount",  document.getElementById('app'));
+            },
+            mounted(){
+                document.getElementById('app');
+                console.log("beforeMount",  document.getElementById('app'));
+            },
+            beforeUpdate(){
+                console.log("beforeUpdate",  document.getElementById('app'));//为什么document.getElementById('app')取到的值和updated后一样的
+            },
+            updated(){
+                console.log("updated",  document.getElementById('app'));
+            },
+            beforeDestroy(){
+                console.log("beforeDestroy");
+            },
+            destroyed(){
+                console.log("destroyed");
+            },
+            activated(){
+                console.log("组件被激活");
+            },
+            deactivated(){
+                console.log("组件被停用");
+            }
+        }
+        new Vue({
+            el: '#app',
+            data: function(){
+                return {
+
+                    isShow: true,
+                }
+            },
+            components: {
+                Test
+            }
+            
+        })
+    </script>
+   
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+        .main {
+            width: 100%;
+            height: 100%;
+        }
+        .main .head{
+            width: 100%;
+            height: 150px;
+            background-color: blue;
+        }
+        .main2 {
+            width: 100%;
+            height: 1000px;
+        }
+        .main2 .aside{
+            width: 30%;
+            height: 100%;
+            background-color: brown;
+            float: left;
+        }
+        .main2 .content{
+            width: 70%;
+            height: 100%;
+            background-color:chartreuse;
+            float: left;
+        }
+    </style>
+    <script>
+        var VHeader = {
+            data: function(){
+                return {}
+            },
+            template: `<div class='head'>我是头部组件</div>`,
+        }
+        var VAside = {
+            data: function(){
+                return {}
+            },
+            template: `<div class='aside'>我是侧边栏组件</div>`,
+        }
+        var VContent = {
+            data: function(){
+                return {}
+            },
+            template: `<div class='content'>我是内容组件</div>`,
+        }
+        var App = {
+            data: function(){
+                return {}
+            },
+            template: `<div class='main'>
+                <VHeader/>
+                <div class='main2'>
+                    <VAside/>
+                    <VContent/>
+                </div>
+            </div>`,
+            components: {
+                VHeader,
+                VAside,
+                VContent,
+            }
+
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <App></App>
+            </div>
+            `,
+            data: function(){
+                return {
+                   
+                }
+            },
+            components: {
+                App
+            }
+        })
+    </script>
+   
+</body>
+</html>

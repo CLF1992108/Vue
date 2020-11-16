@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+        <h1>{{msg}}</h1>
+        <h2>{{ { name:'张三'} }}</h2>
+        <h3>{{ 1==1 }}</h3>
+        <h4>{{ 1 > 2 ? '真' : '假'}}</h4>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            template: ``,
+            data: function(){
+                return {
+                    msg: '你好,Vue!'
+                }
+            }
+        })
+    </script>
+   
+</body>
+</html>

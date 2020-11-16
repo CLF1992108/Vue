@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href='#/login'>登录</a>
+    <a href='#/register'>注册</a>
+    <div id='app'></div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+    </style>
+    <script type="text/javascript">
+       let app = document.getElementById('app');
+       window.onhashchange = function(){
+           switch(location.hash){
+                case '#/login':
+                app.innerHTML = "<div>我是登录</div>";
+                break;
+                case '#/register':
+                app.innerHTML = "<div>我是注册</div>";
+                break;
+
+           }
+               
+           
+       }
+    </script>
+   
+</body>
+</html>

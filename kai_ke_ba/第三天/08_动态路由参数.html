@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script>
+        Vue.use(VueRouter);
+        let Home = {
+            template: `<div>
+                首页内容<br />
+                <router-link :to='{name:"comps", params:{id: "android"}}'>安卓</router-link>
+                <router-link :to='{name:"comps", params:{id: "frontend"}}'>前端</router-link>
+                <router-view></router-view>
+            </div>`,
+            create(){
+
+            },
+                
+        }
+        let Comps = {
+            data(){
+                return {
+                    msg: 'android'
+                }
+            },
+            template: `<div>
+                {{msg}}
+            </div>`,
+            create(){
+
+            },
+            watch:{
+                $route(to, from){
+                    this.msg = to.params.id
+                }
+            }
+        }
+        let Pins = {
+            
+            template: `<div>
+                pins
+            </div>`,
+            create(){
+
+            }
+        }
+        
+        let router = new VueRouter({
+            routes: [
+                {
+                    path:'/',
+                    redirect: '/home',
+                },
+                {
+                    path: '/home',
+                    component: Home,
+                    children:[
+                        {
+                            path: '/home/:id',
+                            name: 'comps',
+                            component: Comps
+                        }
+                    ]
+                },
+                {
+                    path: '/pins',
+                    component: Pins,
+                    
+                }
+            ]
+        })
+
+        let App = {
+            template:`<div>
+                <router-link to='/home'>首页</router-link>
+                <router-link to='/pins'>沸点</router-link>
+                <router-view></router-view>
+            </div>`,
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <App></App>
+            </div>
+            `,
+            data: function () {
+                return {
+
+                }
+            },
+            router: router,
+            components:{
+                App
+            }
+        })
+    </script>
+
+</body>
+
+</html>

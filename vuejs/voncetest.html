@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title></title>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+<a v-bind:href = 'url'>这是百度</a>
+<div id="app-0" v-once>{{msg}}
+
+<button v-on:click="change">点一下</button>
+
+</div>
+
+     <script type="text/javascript">
+
+      var app=new Vue({
+
+      el:'#app-0',
+
+      data:{
+
+      msg:'改变不了了', 
+
+      },
+
+      methods:{
+
+      change:function(){
+
+      this.msg='test'
+
+      }
+
+      }
+
+      })
+
+     </script>
+
+ 
+
+</body>
+
+</html>

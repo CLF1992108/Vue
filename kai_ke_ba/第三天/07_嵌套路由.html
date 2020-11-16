@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script>
+        Vue.use(VueRouter);
+        let Home = {
+            template: `<div>
+                首页内容<br />
+                <router-link to='/home/song'>歌曲</router-link>
+                <router-link to='/home/movie'>电影</router-link>
+                <router-view></router-view>
+            </div>`,
+            create(){
+
+            }
+        }
+        let Song = {
+            template: `<div>
+                歌曲
+            </div>`,
+            create(){
+
+            }
+        }
+        let Movie = {
+            template: `<div>
+                电影
+            </div>`,
+            create(){
+                
+            }
+        }
+        
+        let router = new VueRouter({
+            routes: [
+                {
+                    path: '/home',
+                    component: Home,
+                    children:[
+                        {
+                            path: 'song',
+                            component: Song
+                        },
+                        {
+                            path: 'movie',
+                            component: Movie
+                        }
+                    ]
+                },
+            ]
+        })
+
+        let App = {
+            template:`<div>
+                <router-link to='/home'>首页</router-link>
+                <router-view></router-view>
+            </div>`,
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <App></App>
+            </div>
+            `,
+            data: function () {
+                return {
+
+                }
+            },
+            router: router,
+            components:{
+                App
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "date05",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack ./main.js ./build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vue": "^2.6.12",
+    "webpack": "^3.12.0"
+  },
+  "dependencies": {}
+}

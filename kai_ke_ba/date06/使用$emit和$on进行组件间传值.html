@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <div id='app'>
+        <a-dom></a-dom>
+        <b-dom></b-dom>
+        <c-dom></c-dom>
+    </div>
+    <script>
+        let Event = new Vue();
+        let A = {
+            template: `<div @click='myput'>把a中的数据传递到C</div>`,
+            data(){
+                return {
+                    a: '我是组件A的数据'
+                }
+            },
+            methods:{
+                myput: function(){
+                    debugger
+                    Event.$emit('a-msg', this.a);
+                }
+            }
+        }
+        let B = {
+            template: `<div @click='myput'>把b中的数据传递到C</div>`,
+            data(){
+                return {
+                    b: '我是组件B的数据'
+                }
+            },
+            methods:{
+                myput: function(){
+                    debugger
+                    Event.$emit('b-msg', this.b);
+                }
+            }
+        }
+        let C = {
+            template: `<div >接收A中的数据:{{a}}<br/>接收B中的数据:{{b}}</div>`,
+            data(){
+                return {
+                    a: '',
+                    b: ''
+                }
+            },
+            mounted:function(){
+                debugger
+                Event.$on('a-msg', (a) => {
+                    this.a = a;
+                });
+                Event.$on('b-msg', (b) => {
+                    this.b = b;
+                });
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            template: ``,
+            data(){
+                return {}
+            },
+            components:{
+                'a-dom':A,
+                'b-dom':B,
+                'c-dom':C
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script>
+        Vue.use(VueRouter);
+        let UserP = {
+            template: `<div>
+                我是用户1
+            </div>`,
+            create(){
+
+            }
+        }
+        let UserQ = {
+            template: `<div>
+                我是用户2
+            </div>`,
+            create(){
+                
+            }
+        }
+        
+        let router = new VueRouter({
+            routes: [
+                {
+                    path: '/user/:id',
+                    name: 'userP',
+                    component: UserP
+                },
+                {
+                    path: '/user',
+                    name: 'userQ',
+                    component: UserQ
+                },
+            ]
+        })
+
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <router-link :to='{name:"userP", params: {id: 1}}'>我是用户1</router-link>
+                <router-link :to='{name:"userQ", query: {userId: 2}}'>我是用户2</router-link>
+                <router-view></router-view>
+            </div>
+            `,
+            data: function () {
+                return {
+
+                }
+            },
+            router: router,
+            mounted: function () {
+
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <div id='app'></div>
+    <script>
+        Vue.component('my-coms',{
+            data(){
+                return {}
+            },
+            template:`
+                <div>
+                    {{obj.name}}{{obj.content}}
+                    <input type='text' value=''/>
+                </div>`,
+            props: {
+                obj: Object
+            }
+        });
+        let App = {
+            data(){
+                return {imgs:[{id: 1, name: '张三', content: '我是张三'},
+                {id: 2, name: '李四', content: '我是李四'},
+                {id: 3, name: '王五', content: '我是王五'}]}
+            },
+            template: `<div>
+                    <button @click='change'>改变</button> 
+                    <my-coms v-for='img in imgs' :obj='img' :key='img.id'></my-coms>
+                </div>`,
+            methods:{
+                change:function(){
+                    this.imgs = _.shuffle(this.imgs);
+                }
+            }
+                
+            
+        }
+        new Vue({
+            el: '#app',
+            data(){
+                return {}
+            },
+            template: `<App></App>`,
+            components:{App}
+                
+            
+            
+        });
+    </script>
+</body>
+</html>

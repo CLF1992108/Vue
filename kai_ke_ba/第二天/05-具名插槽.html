@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+        .main {
+            width: 100%;
+            height: 100%;
+        }
+        .main .head{
+            width: 100%;
+            height: 150px;
+            background-color: blue;
+        }
+        .main2 {
+            width: 100%;
+            height: 1000px;
+        }
+        .main2 .aside{
+            width: 30%;
+            height: 100%;
+            background-color: brown;
+            float: left;
+        }
+        .main2 .content{
+            width: 70%;
+            height: 100%;
+            background-color:chartreuse;
+            float: left;
+        }
+    </style>
+    <script>
+        Vue.component('MySlot', {
+            data: function(){
+                return {}
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li>
+                            <slot name='two'></slot>
+                        </li>
+                        <li>
+                            <slot name='one\'></slot>
+                        </li>
+                    </ul>
+                </div>
+            `,
+        });
+        
+
+        var App = {
+            data: function(){
+                return {}
+            },
+            template: `<div class='main'>
+                <MySlot>
+                    <h3 slot='one'>张三</h3>
+                    <h4 slot='two'>李四</h4>
+                </MySlot>
+            </div>`,
+            
+
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <App></App>
+            </div>
+            `,
+            data: function(){
+                return {
+                   
+                }
+            },
+            components: {
+                App
+            }
+        })
+    </script>
+   
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+    <script src="./node_modules/axios/dist/axios.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+    // https://www.easy-mock.com/mock/5d65ef060d2acc6a1fb9a126/example/restful/:id
+    Vue.prototype.$axios = axios;
+  
+        var User = {
+            template:`
+            <div>
+                <h2>{{userName}}</h2>
+                </div>`,
+            data(){
+                return{
+                    userName:"用户"
+                }
+            },
+            methods:{
+                changName(val){
+                    this.userName = val.data.user;
+                }
+            },
+            beforeRouteEnter(to,from,next){
+                //注意1：动态路由。组件相同数据不同，这个函数只会进来一次，切换路由的时候，到beforeRouteUpdate中
+                // 注意2：这个函数内路由还灭挂载通过this去取不到组件对象，需要通过next函数取
+                axios.defaults.baseURL = "https://www.easy-mock.com/mock/5d65ef060d2acc6a1fb9a126/example"
+                console.log(to.params.id);
+                axios.get(`/vuelearn/${ to.params.id }`).then(res=>{
+                    console.log(res);
+                    next((vm=>{
+                        vm.changName(res);
+                    }))
+                }).catch(err=>{
+                    console.log(err)
+                })
+         
+            },
+            beforeRouteUpdate(to,from,next){
+                // 注意3：一定要调用next函数，否则组件不会进来
+               
+                axios.get(`/vuelearn/${ to.params.id }`).then(res=>{
+                    this.changName(res)
+                }).catch(err=>{
+                    console.log(err)
+                });
+                next();
+                // if(to.params.id==2){
+                //     // 添加定时器
+                //     var time = new Date();
+                //     var nowtimes =time.getSeconds()
+                //     var timeAdd = setInterval(()=>{
+                //         nowtimes++;
+                //         console.log(nowtimes);
+                //     },1000);
+                // }
+
+            },
+            beforeRouteLeave(to,from,next){
+                // 路由离开前。
+                // 常用场景1：清空定时器
+                debugger;
+                next()
+                console.log("离开了")
+
+            }
+        }
+        var Test = {
+            template:`
+            <div>我是测试</div>`,
+          
+        }
+        var router = new VueRouter({
+            routes:[
+                {
+                    path:"/test",
+                    component:Test,
+                    name:"test"
+                },
+                {
+                    path:"/user/:id",
+                    component:User,
+                    name:"user"
+                }
+            ]
+        })
+        // <router-link :to = "{name:'user',params:{id:2}}">用户2</router-link> 
+        var App = {
+            template:`
+            <div>
+                <router-link :to = "{name:'user',params:{id:1}}">用户1</router-link>
+                <router-link :to = "{name:'user',params:{id:2}}">用户2</router-link>
+                <router-link to="/test">测试</router-link>
+                <router-view></router-view>
+                </div>
+            `,
+            components:{
+                User,
+                Test
+
+            }
+
+        }
+        new Vue({
+            el:'#app',
+            template:`
+            <App/>
+            `,
+            router,
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

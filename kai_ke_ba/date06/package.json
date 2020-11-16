@@ -1,0 +1,19 @@
+{
+  "name": "date06",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "vue-router": "^3.4.9"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

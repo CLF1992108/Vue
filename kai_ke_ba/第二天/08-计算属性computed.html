@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>   
+        body {
+                padding: 0px;
+                margin: 0px;
+            }   
+        .main {
+            background-color: chartreuse;
+        }       
+        .active{
+           background-color: chartreuse;
+           color: chocolate;
+            
+       }
+    </style>
+</head>
+<body> 
+</div>
+    <div id='app'>
+       
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    
+    <script>
+       
+        var App = {
+            data: function(){
+                return {
+                    
+                    songSrc: './申升勋 - I Believe.mp3',
+                    currentIndex:0
+                }
+            },
+            template: `<div>
+                <audio :src="computedSongSrc" autoplay controls ></audio>
+                <ul >
+                    <li v-for='(song,index) in songs' @click='currentIndex = index' :class='{active : currentIndex === index}'>
+                        {{song.id}}{{song.src}}{{song.author}}
+                    </li>
+                </ul>
+            </div>`,
+            props:['songs'],
+            computed:{
+                computedSongSrc(){
+                   console.log(this.songs);
+                   return this.songs[this.currentIndex].src
+                }
+            }
+
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <App :songs='songs'></App>
+            </div>
+            `,
+            data: function(){
+                return {
+                    songs:[
+                        {id:1,src:'./申升勋 - I Believe.mp3',author:'申升勋'},
+                        {id:2,src:'./金玟岐 - 最初的梦想.mp3',author:'金玟岐'}
+                    ],
+                }
+            },
+            components: {
+                App
+            }
+        })
+    </script>
+   
+</body>
+</html>

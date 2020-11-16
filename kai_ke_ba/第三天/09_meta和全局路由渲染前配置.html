@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script>
+        Vue.use(VueRouter);
+        let Home = {
+            template: `<div>
+                首页内容<br />
+                <router-link :to='{name:"comps", params:{id: "android"}}'>安卓</router-link>
+                <router-link :to='{name:"comps", params:{id: "frontend"}}'>前端</router-link>
+                <router-view></router-view>
+            </div>`,
+            create(){
+
+            },
+                
+        }
+        let Comps = {
+            data(){
+                return {
+                    msg: 'android'
+                }
+            },
+            template: `<div>
+                {{msg}}
+            </div>`,
+            create(){
+
+            },
+            watch:{
+                $route:function(to, from){
+                    this.msg = to.params.id
+                }
+            }
+        }
+        let Blog = {
+            
+            template: `<div>
+                我的博客
+            </div>`,
+            create(){
+
+            }
+        }
+        let Login = {
+            data: function(){
+                return {
+                    "user":null,
+                    "pws":null,
+                }
+            },
+            template: `<div>
+                <input type='text' v-model='user'></input>
+                <input type='text' v-model='pws'></input>
+                <input type='button' @click='login' value='登录'></input>
+            </div>`,
+            methods:{
+                login:function(){
+                    if(this.user){
+                        localStorage.setItem('user', this.user);
+                        localStorage.setItem('pws', this.pws);
+                        this.$router.push('/blog');
+                    }
+                    
+                    
+                }
+            }
+        }
+        let router = new VueRouter({
+            routes: [
+                {
+                    path:'/',
+                    redirect: '/home',
+                },
+                {
+                    path: '/home',
+                    component: Home,
+                    children:[
+                        {
+                            path: '/home/:id',
+                            name: 'comps',
+                            component: Comps
+                        }
+                    ]
+                },
+                {
+                    path: '/blog',
+                    meta:{
+                        auth: true
+                    },
+                    component: Blog,
+                    
+                },
+                {
+                    path: '/login',
+                    component: Login,
+                    
+                },
+            ]
+        })
+
+        router.beforeEach(function(to, from, next){
+            if(to.meta.auth){
+                if(localStorage.getItem('user')){
+                    next();
+                }else{
+                    
+                    next({
+                        path:'/login'
+                    });
+                }
+
+            }else{
+                next();
+            }
+            
+        });
+        let App = {
+            template:`<div>
+                <router-link to='/home'>首页</router-link>
+                <router-link to='/blog'>博客</router-link>
+                <router-link to='/login'>登录</router-link>
+                <button @click='clear'>退出</button>
+                <router-view></router-view>
+            </div>`,
+            methods:{
+                clear: function(event){
+                    if(localStorage.getItem('user')){
+                        console.log(this.user);
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('pws');
+                        // if(this.$router)
+                        
+                        console.log(this.$router);
+                        if(!this.$router.currentRoute.fullPath === '/login'){
+                            this.$router.push('/login');
+                        }
+                        
+                    }
+                    
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <App></App>
+            </div>
+            `,
+            data: function () {
+                return {
+
+                }
+            },
+            router: router,
+            components:{
+                App
+            }
+        })
+    </script>
+
+</body>
+
+</html>

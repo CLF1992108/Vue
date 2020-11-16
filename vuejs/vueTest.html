@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <script type="text/javascript" src="http://v1.vuejs.org/js/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app-2">
+        <span v-bind:title="message">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+    </div>
+    <div id="app-3">
+        <p v-show="seenshow">现在你看到我了show</p>
+        <p v-if="seenif">现在你看到我了if</p>
+        
+      </div>
+
+      <div id="app-4">
+        <ol>
+          <li v-for="todo in todos">
+            {{ todo.text }}
+          </li>
+        </ol>
+      </div>
+      <div id="app-5">
+        <p>{{ message }}</p>
+        <input v-model="message">
+        <button v-on:click="reverseMessage">反转消息</button>
+      </div>
+      <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+      </div>
+    <script>
+        var app2 = new Vue({
+            el: '#app-2',
+            data: {
+                message: '页面加载于 ' + new Date().toLocaleString()
+            }
+        })
+        var app3 = new Vue({
+            el: '#app-3',
+            data: {
+                seenif: false,
+                seenshow:true
+            }
+        })
+        
+        var app4 = new Vue({
+            el: '#app-4',
+            data: {
+                todos:[{text:'hahah'},{text:'hahah2'},{text:'hahah3'},{text:'hahah4'},]
+            }
+        })
+        var app5 = new Vue({
+            el: '#app-5',
+            data: {
+                message: 'this is vue'
+            },
+            methods: {
+                reverseMessage: function (){
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        })
+        var app6 = new Vue({
+            el: '#app-6',
+            data: {
+                message:"nihao"
+            }
+        })
+    </script>
+</body>
+
+</html>

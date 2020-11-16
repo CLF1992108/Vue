@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+    </style>
+    <script>
+       
+        var App = {
+            data: function(){
+                return {}
+            },
+            template: `<input type='text'></input>`
+
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <input type='text' ref='input' v-if='isShow'></input>
+            </div>
+            `,
+            data: function(){
+                return {
+                  isShow : false
+                }
+            },
+           components:{
+               App
+           },
+           mounted:function(){
+                this.isShow = true;
+                
+                this.$nextTick(function(){
+                    this.$refs.input.focus();
+                   
+                })
+                
+           }
+        })
+    </script>
+   
+</body>
+</html>

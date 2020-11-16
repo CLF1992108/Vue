@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title></title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <div id="app-0" v-if='seen'>
+        <a v-bind:href='url'>这是{{msg}}</a>
+
+        <button v-on:click="change">点一下变京东</button>
+
+    </div>
+
+    <script type="text/javascript">
+
+        var app = new Vue({
+
+            el: '#app-0',
+
+            data: {
+
+                msg: '百度',
+                url: 'http://www.baidu.com',
+                seen: false
+
+            },
+
+            methods: {
+
+                change: function () {
+
+                    this.msg = '京东';
+                    this.url = 'http://jd.com';
+
+                }
+
+            }
+
+        })
+
+    </script>
+
+
+
+</body>
+
+</html>

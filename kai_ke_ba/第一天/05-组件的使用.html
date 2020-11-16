@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0px;
+            margin: 0px;
+        }
+        .main{
+            width: 100%;
+            height: 100%;
+        }
+        .main .head{
+            width: 100%;
+            height: 80px;
+            background: brown;
+        }
+        .main2 {
+            width: 100%;
+            height: 1000px;
+        }
+        .main2 .aside{
+            width: 30%;
+            height: 100%;
+            background: green;
+            float: left;
+        }
+        .main2 .content{
+            width: 70%;
+            height: 100%;
+            background: blue;
+            float: left;
+            
+        }
+        .but{
+            width: 50px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'></div>
+    <script src="../node_modules/vue/dist/vue.min.js"></script>
+    <script>
+        var Vbutton = Vue.component(
+            'Vbutton',{
+                template: `<button class='but'>按钮</button>`,
+                data: function(){
+                    return {};
+                }
+            }
+        )
+        var VHeader = {
+            template: `<div class='head'>我是头部组件<Vbutton/></div>`,
+            data: function(){
+                return {};
+            }
+        }
+        var VAside = {
+            template: `<div class='aside'>我是侧边栏组件<Vbutton/></div>`,
+            data: function(){
+                return {};
+            }
+        }
+        var VContent= {
+            template: `<div class='content'>我是内容组件<Vbutton/></div>`,
+            data: function(){
+                return {};
+            }
+        }
+        var App = {
+            template: `<div class='main'>
+                       <VHeader/>
+                       <div class='main2'>
+                        <VAside/><VContent/>
+                       </div>
+                       </div>`,
+            data: function(){
+                return {};
+
+            },
+            components:{
+                VHeader,
+                VAside,
+                VContent,
+            }
+        }
+        new Vue({
+            el: '#app',
+            template: `
+            <div>
+                <App />
+            </div>
+            `,
+            components: {
+                App
+            },
+            data: function(){
+                return {};
+
+            }
+        });
+    </script>
+</body>
+</html>
