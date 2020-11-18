@@ -8,6 +8,9 @@
     "vue": "^2.6.12"
   },
   "devDependencies": {
+    "axios": "^0.21.0",
+    "lodash": "^4.17.20",
+    "vue": "^2.6.12",
     "vue-router": "^3.4.9"
   },
   "scripts": {
